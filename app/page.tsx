@@ -1,7 +1,12 @@
+'use client'
+
+import { useState } from 'react'
 import { MapView } from "@/components/map-view"
+import { AddressSheet } from "@/components/address-sheet"
 import { AlignLeft, LocateFixed } from "lucide-react"
 
 export default function Page() {
+  const [showAddressSheet, setShowAddressSheet] = useState(false)
   return (
     <main className="flex min-h-screen items-center justify-center bg-background p-0 sm:p-6">
       {/* Phone frame */}
@@ -11,8 +16,9 @@ export default function Page() {
         {/* Top-left menu button */}
         <button
           type="button"
-          aria-label="打开菜单"
-          className="absolute left-5 top-6 flex h-11 w-11 items-center justify-center rounded-full bg-card text-foreground shadow-md transition-transform active:scale-95"
+          aria-label="打开地址搜索"
+          onClick={() => setShowAddressSheet(!showAddressSheet)}
+          className="absolute left-5 top-6 flex h-11 w-11 items-center justify-center rounded-full bg-card text-foreground shadow-md transition-transform active:scale-95 z-20"
         >
           <AlignLeft className="h-5 w-5" aria-hidden="true" />
         </button>
@@ -21,12 +27,20 @@ export default function Page() {
         <button
           type="button"
           aria-label="回到当前位置"
-          className="absolute bottom-[46%] right-5 flex h-12 w-12 items-center justify-center rounded-full bg-card text-foreground shadow-md transition-transform active:scale-95"
+          className="absolute bottom-[46%] right-5 flex h-12 w-12 items-center justify-center rounded-full bg-card text-foreground shadow-md transition-transform active:scale-95 z-10"
         >
           <LocateFixed className="h-5 w-5" aria-hidden="true" />
         </button>
 
+        {/* Address sheet with backdrop */}
+        {showAddressSheet && (
+          <div
+            className="absolute inset-0 z-30 bg-black/30 transition-opacity"
+            onClick={() => setShowAddressSheet(false)}
+          />
+        )}
 
+        {showAddressSheet && <AddressSheet onClose={() => setShowAddressSheet(false)} />}
       </div>
     </main>
   )

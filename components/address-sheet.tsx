@@ -1,4 +1,8 @@
-import { MapPin, Search } from "lucide-react"
+import { MapPin, Search, X } from "lucide-react"
+
+interface AddressSheetProps {
+  onClose?: () => void
+}
 
 interface AddressItem {
   title: string
@@ -12,11 +16,23 @@ const addresses: AddressItem[] = [
   { title: "67, Grand Central Pkwy", city: "New York", muted: true },
 ]
 
-export function AddressSheet() {
+export function AddressSheet({ onClose }: AddressSheetProps) {
   return (
-    <div className="absolute inset-x-0 bottom-0 rounded-t-[2rem] bg-card pb-6 pt-3 shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
-      {/* Drag handle */}
-      <div className="mx-auto mb-5 h-1 w-10 rounded-full bg-foreground/15" />
+    <div className="absolute inset-x-0 bottom-0 z-40 rounded-t-[2rem] bg-card pb-6 pt-3 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] animate-in slide-in-from-bottom-4">
+      {/* Drag handle + close button */}
+      <div className="mb-5 flex items-center justify-between px-5">
+        <div className="mx-auto h-1 w-10 rounded-full bg-foreground/15" />
+        {onClose && (
+          <button
+            type="button"
+            aria-label="关闭"
+            onClick={onClose}
+            className="absolute right-5 top-3 flex h-8 w-8 items-center justify-center"
+          >
+            <X className="h-5 w-5 text-foreground/50" aria-hidden="true" />
+          </button>
+        )}
+      </div>
 
       {/* Search input */}
       <div className="mx-5 mb-2 flex items-center gap-3 rounded-2xl bg-background px-4 py-4">

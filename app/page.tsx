@@ -1,5 +1,4 @@
 import { MapView } from "@/components/map-view"
-import { AddressSheet } from "@/components/address-sheet"
 import { AlignLeft, LocateFixed } from "lucide-react"
 
 export default function Page() {
@@ -27,7 +26,7 @@ export default function Page() {
           <LocateFixed className="h-5 w-5" aria-hidden="true" />
         </button>
 
-        <AddressSheet />
+
       </div>
     </main>
   )
